@@ -5,6 +5,9 @@ import './css/diy.css'
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import { Button, Input } from 'antd';
+import { Switch } from 'antd';
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const title = React.createElement("h1", null, "React Learn")
 
@@ -17,12 +20,19 @@ const title = React.createElement("h1", null, "React Learn")
 const titleJsx = <h1 className='title'>React Learn Jsx</h1>
 const name = "zhiyongzhu"
 var age = 19
+const Hello1 = () => (
+  <div>
+    <span>这是个箭头函数组件。</span>
+  </div>
+)
 const titleJsx2 = (
   <div>
     <h1 className='title'>
       React Learn Jsx by {name}
     </h1>
     <span>My age is: {age}</span>
+    <Hello />
+    <Hello1 />
   </div>
 )
 
@@ -60,7 +70,129 @@ const list = (
 
 
 
+/**
+ * React组件
+ * 组件是React中的一等公民
+ * 两种创建方式，函数创建，类创建
+ */
+
+/**
+ * 函数组件，无状态组件
+ * 函数名称必须以大写字母开头
+ * 必须有返回值，返回的内容为要渲染的内容
+ * 调用方式，直接使用 <functionName />进行调用
+ */
+function Hello() {
+  return (
+    <div>
+      <span>这是个函数组件。</span>
+    </div>
+  )
+}
+// 箭头函数组件，这个必须先定义（代码顺序）
+const Hello2 = () => (
+  <div>
+    <span>这是个箭头函数组件。</span>
+  </div>
+)
+
+/**
+ * 类组件，有状态组件
+ * 必须以大写字母开头
+ * 必须继承ReactComponent父类
+ * 必须提供render()方法
+ * rander()方法必须有返回值
+ */
+class ClassHello extends React.Component {
+  render() {
+    return (
+      <div>
+        <span>这是个类组件。</span>
+      </div>
+    )
+  }
+}
+
+
+/**
+ * 事件处理
+ * 事件绑定
+ * on+事件名称={事件处理程序}
+ * 事件处理函数可以接收一个参数，是当前的时间对象
+ */
+
+class EventDemo extends React.Component {
+  // constructor() {
+  //   super() //es6的固定写法
+  //   this.handleClick = this.handleClick.bind(this) // 通过bind方法绑定this
+  //   this.state = {
+  //     count: 10
+  //   }
+  // }
+  state = {
+    count: 10,
+    text: "123"
+  }
+  handleClick() {
+    this.setState({
+      count: this.state.count + 1
+    })
+    console.log("我触发单击事件了", this.state.count)
+  }
+  ChangeText(e) {
+    this.setState({
+      text: e.target.value
+    })
+  }
+  render() {
+    return (
+      <div>
+        <span>事件处理</span>
+        <div>
+          <Button type="primary" size="large" onClick={() => this.handleClick()}>请点我</Button>
+          <Switch defaultChecked={false} />
+          <span>计数 {this.state.count}</span>
+          <Input size="large" style={{ width: 200 }} placeholder="123" onChange={e => this.ChangeText(e)} />
+        </div>
+        <div>{this.state.text}</div>
+      </div>
+    )
+  }
+}
+
+/**
+ * 函数组件又叫无状态组件，类组件又叫有状态组件
+ * 状态即数据
+ * 函数组件只负责数据展示
+ * 类组件有自己的状态，负责更新UI
+ * 状态是组件内部私有数据，只能在组件内部使用，是一个对象state，是一个特殊的对象
+ * 通过this.state.xxx获取状态中的数据
+ * 通过setState()修改状态，state的修改会伴随UI的更新，数据驱动视图
+ * 事件处理函数中无法读取出this
+ */
+
+/**
+ * 处理事件绑定this指向问题
+ * 1. 利用箭头函数 () => this.handleXXX()
+ * 2. 利用ES5中的bind方法，将事件处理程序中的this与组件实例绑定到一起
+ * 3. 利用箭头函数形式的class实例方法，即使用箭头函数的方式定义事件处理函数 handleXXX = () =>{}
+ */
+
+/**
+ * 表单处理
+ * 1.受控组件
+ * state与表单值绑定, 通过onChange事件调用this.setState进行数据更新
+ * TODO: 通过一个函数处理所有表单类型
+ */
+
+
+
+
+
 // render用于渲染react元素到页面上，只能调用一次，多次调用，最后一个生效
 // root.render(title)
 // root.render(titleJsx2)
-root.render(list)
+// root.render(list)
+// root.render(<Hello />)
+// root.render(<ClassHello />)
+root.render(<EventDemo />)
