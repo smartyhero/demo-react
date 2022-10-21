@@ -1,3 +1,8 @@
+# 简介
+
+这里是在学习React的时候的笔记
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
