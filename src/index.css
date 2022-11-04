@@ -15,3 +15,7 @@ code {
 .title {
   color: blue;
 }
+
+.link>a {
+  padding: 10px;
+}

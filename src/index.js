@@ -4,12 +4,18 @@ import './index.css';
 import './css/diy.css'
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import G6Test from './views/g6-test';
+import EidTopology from './views/eid-topology';
 
 import { Button, Input } from 'antd';
 import { Switch } from 'antd';
+// 导入路由的三个组件
+import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const title = React.createElement("h1", null, "React Learn")
+
+
 
 // jsx最重要的特性就是，把html标签直接赋值给变量
 // 属性命名，驼峰命名
@@ -188,6 +194,40 @@ class EventDemo extends React.Component {
 
 
 
+/**
+ * 路由学习
+ * 1. 安装npm install react-router-dom
+ * 2. 导入
+ * 3. 使用router包裹整应用
+ * 4. 使用link组件作为
+ * 5. 使用route组件配置路由规则和要展示的组件
+ */
+
+class RouteDemo extends React.Component {
+  render() {
+    return (
+      <Router>
+        <div>
+          route 学习
+        </div>
+        <div className='link'>
+
+          <Link to="/first">页面一</Link>
+          <Link to="/">主页</Link>
+          <Link to="/g6-test">G6 demo</Link>
+          <Link to="/eid-topology">eid服务调用拓扑</Link>
+        </div>
+        <Routes>
+          <Route path="/first" element={<EventDemo />}></Route>
+          <Route path="/" element={<ClassHello />}></Route>
+          <Route path="/g6-test" element={<G6Test />}></Route>
+          <Route path="/eid-topology" element={<EidTopology />}></Route>
+        </Routes>
+      </Router >
+    )
+  }
+}
+
 
 // render用于渲染react元素到页面上，只能调用一次，多次调用，最后一个生效
 // root.render(title)
@@ -195,4 +235,5 @@ class EventDemo extends React.Component {
 // root.render(list)
 // root.render(<Hello />)
 // root.render(<ClassHello />)
-root.render(<EventDemo />)
+// root.render(<EventDemo />)
+root.render(<RouteDemo />)
